@@ -309,7 +309,9 @@
     align-items: baseline;
     padding: 1.05rem 0;
     border-bottom: 1px solid var(--line);
+    text-decoration: none;
   }
+  a.resource-row:hover{ background: var(--surface-alt); }
   .resource-row .code{ font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-faint); }
   .resource-row .title{ font-size: 1rem; font-weight: 600; }
   .resource-row .desc{ color: var(--ink-soft); font-size: 0.88rem; margin-top:0.2rem; }
@@ -381,6 +383,7 @@
         <p class="lede">A ready-made home page for an acute medicine quality-improvement network — built around the whole multidisciplinary team, not one grade or profession. Register, standardise and showcase QIPs across as many sites as you need, then swap in your own name, sites and project list.</p>
         <div class="cta-row">
           <a class="btn btn-solid" href="#library">Browse the QIP library &rarr;</a>
+          <a class="btn btn-line" href="https://aimqa.github.io/SAMQIP/" target="_blank" rel="noopener">Open the QIP Diagram Tool &#8599;</a>
           <a class="btn btn-line" href="#involved">Register a project</a>
         </div>
       </div>
@@ -535,8 +538,32 @@
       </div>
 
       <div class="resource-list">
-        <div class="resource-row">
+        <a class="resource-row" href="./SAM_QIP_Roadmap.pptx">
           <span class="code">RES-01</span>
+          <div>
+            <div class="title">QIP Roadmap</div>
+            <div class="desc">Seven stages from first idea to finished write-up, and round again — start here. Works with the Reporting Guide and Presentation Template below.</div>
+          </div>
+          <span class="format">.pptx</span>
+        </a>
+        <a class="resource-row" href="./SAM_SQUIRE_2_0_Reporting_Guide.pptx">
+          <span class="code">RES-02</span>
+          <div>
+            <div class="title">SQUIRE 2.0 Reporting Guide</div>
+            <div class="desc">All 18 SQUIRE items in plain English, with what’s “enough” at every step of a first QIP write-up.</div>
+          </div>
+          <span class="format">.pptx</span>
+        </a>
+        <a class="resource-row" href="./SAM_SQUIRE_2_0_Presentation_Template.pptx">
+          <span class="code">RES-03</span>
+          <div>
+            <div class="title">SQUIRE 2.0 Presentation Template</div>
+            <div class="desc">Fill-in slides mapped to all 18 SQUIRE items, plus an 18-item self-check before you present.</div>
+          </div>
+          <span class="format">.pptx</span>
+        </a>
+        <div class="resource-row">
+          <span class="code">RES-04</span>
           <div>
             <div class="title">PDSA cycle worksheet</div>
             <div class="desc">One page per cycle — plan, prediction, what happened, what’s next.</div>
@@ -544,7 +571,7 @@
           <span class="format">.docx</span>
         </div>
         <div class="resource-row">
-          <span class="code">RES-02</span>
+          <span class="code">RES-05</span>
           <div>
             <div class="title">SMART aim statement builder</div>
             <div class="desc">Turns a vague problem into a measurable, time-bound aim before you collect any data.</div>
@@ -552,7 +579,7 @@
           <span class="format">.docx</span>
         </div>
         <div class="resource-row">
-          <span class="code">RES-03</span>
+          <span class="code">RES-06</span>
           <div>
             <div class="title">Run chart / SPC spreadsheet</div>
             <div class="desc">Pre-built median and control-limit calculations — drop in your data points.</div>
@@ -560,23 +587,7 @@
           <span class="format">.xlsx</span>
         </div>
         <div class="resource-row">
-          <span class="code">RES-04</span>
-          <div>
-            <div class="title">Driver diagram template</div>
-            <div class="desc">Primary and secondary drivers, laid out for a first team huddle.</div>
-          </div>
-          <span class="format">.pptx</span>
-        </div>
-        <div class="resource-row">
-          <span class="code">RES-05</span>
-          <div>
-            <div class="title">Poster template</div>
-            <div class="desc">A0 format for a regional or departmental QI day, ready to rebrand.</div>
-          </div>
-          <span class="format">.pptx</span>
-        </div>
-        <div class="resource-row">
-          <span class="code">RES-06</span>
+          <span class="code">RES-07</span>
           <div>
             <div class="title">ARCP evidence checklist</div>
             <div class="desc">What a QIP write-up needs to satisfy the curriculum requirement, mapped to outcomes.</div>
@@ -584,7 +595,7 @@
           <span class="format">.pdf</span>
         </div>
       </div>
-      <p class="network-note">Full versions are yours to host wherever your department already shares files — swap this line for your own link.</p>
+      <p class="network-note">The Roadmap, Reporting Guide and Presentation Template download directly. The rest are yours to host wherever your team already shares files — swap this line for your own link.</p>
     </div>
   </section>
 
@@ -625,10 +636,10 @@
 
       <div class="involved-cta">
         <div>
-          <h3>Ready to make this yours?</h3>
-          <p>Replace this box with your own contact — an email, a Teams channel, whatever your department already uses.</p>
+          <h3>Ready to register a project?</h3>
+          <p>Email the SAM QI team with a two-line summary of the problem you want to fix — or swap this box for your own contact if you're reusing this page elsewhere.</p>
         </div>
-        <a class="btn btn-solid" href="mailto:qip@sample-website.example">qip@sample-website.example</a>
+        <a class="btn btn-solid" href="mailto:quality.improvement@acutemedicine.org.uk">quality.improvement@acutemedicine.org.uk</a>
       </div>
     </div>
   </section>
@@ -637,8 +648,8 @@
 
 <footer>
   <div class="wrap footer-grid">
-    <span>Sample Website — a template quality-improvement network page. Copy it, rebrand it, publish it.</span>
-    <span class="mono">Not affiliated with any trust or organisation</span>
+    <span>Sample Website — a QIP resource hub for <a href="https://www.acutemedicine.org.uk/" target="_blank" rel="noopener">Society for Acute Medicine</a> members. Copy it, rebrand it, publish it.</span>
+    <span class="mono">Diagram tool: <a href="https://aimqa.github.io/SAMQIP/" target="_blank" rel="noopener">aimqa.github.io/SAMQIP</a></span>
   </div>
 </footer>
 
