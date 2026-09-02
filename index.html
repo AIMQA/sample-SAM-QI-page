@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sample Website — QIP Network Template</title>
+<meta name="description" content="A template quality-improvement network home page for acute medicine departments — replace the name, sites and QIP list below with your own, and it’s ready to publish.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============ Tokens ============ */
+  :root{
+    --paper: #faf9f7;
+    --surface: #ffffff;
+    --surface-alt: #f1efec;
+    --ink: #15151a;
+    --ink-soft: #55555e;
+    --ink-faint: #8a8a92;
+    --line: #d8d6d1;
+    --line-strong: #a3a19b;
+    --shadow-line: rgba(21,21,26,0.06);
+    --accent: #036E3A;
+
+    --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --font-body: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+
+    --measure: 42rem;
+    --edge: clamp(1.25rem, 4vw, 3.5rem);
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper: #0c0c0e;
+      --surface: #17171a;
+      --surface-alt: #131315;
+      --ink: #f3f2ef;
+      --ink-soft: #b0aea8;
+      --ink-faint: #7c7a75;
+      --line: #2d2d30;
+      --line-strong: #47474a;
+      --shadow-line: rgba(0,0,0,0.35);
+      --accent: #7DD08F;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper: #0c0c0e;
+    --surface: #17171a;
+    --surface-alt: #131315;
+    --ink: #f3f2ef;
+    --ink-soft: #b0aea8;
+    --ink-faint: #7c7a75;
+    --line: #2d2d30;
+    --line-strong: #47474a;
+    --shadow-line: rgba(0,0,0,0.35);
+    --accent: #7DD08F;
+  }
+
+  /* ============ Reset ============ */
+  *,*::before,*::after{ box-sizing: border-box; }
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color: inherit; }
+  h1,h2,h3,p,ul,ol,dl,figure{ margin:0; }
+  ul,ol{ padding:0; list-style:none; }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  h1,h2,h3{ font-family: var(--font-display); font-weight:500; text-wrap: balance; }
+
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .measure{ max-width: var(--measure); }
+
+  /* ============ Layout shells ============ */
+  .wrap{
+    max-width: 74rem;
+    margin: 0 auto;
+    padding-inline: var(--edge);
+  }
+  section{ padding-block: clamp(3.25rem, 7vw, 6rem); }
+  .rule{
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 0;
+  }
+
+  /* ============ Header ============ */
+  header.site{
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-block: 0.9rem;
+    gap: 1.5rem;
+  }
+  .wordmark{
+    display:flex;
+    align-items:baseline;
+    gap:0.55rem;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-decoration:none;
+  }
+  .wordmark .tick{
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    font-weight: 400;
+  }
+  nav.primary{ display:flex; gap: clamp(1rem, 2vw, 1.85rem); }
+  nav.primary a{
+    font-size: 0.86rem;
+    text-decoration:none;
+    color: var(--ink-soft);
+    padding-block: 0.2rem;
+    border-bottom: 1px solid transparent;
+    transition: color .15s ease, border-color .15s ease;
+  }
+  nav.primary a:hover, nav.primary a:focus-visible{ color: var(--accent); border-color: var(--accent); }
+  .nav-toggle{ display:none; }
+
+  @media (max-width: 640px){
+    nav.primary{ display:none; }
+  }
+
+  /* ============ Hero ============ */
+  .hero{
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(3.5rem, 10vw, 7.5rem) clamp(2.5rem, 6vw, 4rem);
+    background-image:
+      linear-gradient(var(--shadow-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--shadow-line) 1px, transparent 1px);
+    background-size: 34px 34px;
+    background-position: center top;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: end;
+  }
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns: 1fr; }
+  }
+  .hero h1{
+    font-size: clamp(2.3rem, 5.6vw, 4rem);
+    line-height: 1.06;
+    letter-spacing: -0.01em;
+    margin-block: 0.9rem 1.1rem;
+  }
+  .hero h1 em{ font-style: italic; font-weight: 500; }
+  .hero p.lede{
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    max-width: 34rem;
+  }
+  .cta-row{ display:flex; flex-wrap:wrap; gap: 0.85rem; margin-top: 1.9rem; }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:0.5rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.72rem 1.15rem;
+    text-decoration:none;
+    border: 1px solid var(--accent);
+    transition: background .15s ease, color .15s ease, opacity .15s ease;
+  }
+  .btn-solid{ background: var(--accent); color: var(--paper); }
+  .btn-solid:hover{ opacity: 0.82; }
+  .btn-line{ background:transparent; color: var(--accent); }
+  .btn-line:hover{ background: var(--surface-alt); }
+
+  .chart-figure{
+    border: 1px solid var(--line);
+    background: var(--surface);
+    padding: 1.1rem 1.1rem 0.9rem;
+  }
+  .chart-figure figcaption{
+    display:flex;
+    justify-content:space-between;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px dashed var(--line);
+  }
+  .trace-line{ stroke: var(--accent); }
+  .trace-median{ stroke: var(--ink-faint); }
+  .trace-point{ fill: var(--paper); stroke: var(--accent); }
+
+  /* ============ Section headings ============ */
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .section-head h2{ font-size: clamp(1.65rem, 3.4vw, 2.35rem); margin-top: 0.5rem; }
+  .section-head .count{
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    padding-bottom: 0.35rem;
+  }
+
+  /* ============ About ============ */
+  .about-cols{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 4.5rem);
+  }
+  @media (max-width: 760px){ .about-cols{ grid-template-columns: 1fr; } }
+  .about-cols p + p{ margin-top: 1rem; }
+  .about-cols p{ color: var(--ink-soft); }
+  dl.stats{ display:grid; grid-template-columns: repeat(2,1fr); gap: 1.4rem 1.6rem; align-content:start; }
+  dl.stats div{ border-top: 1px solid var(--line); padding-top: 0.6rem; }
+  dl.stats dt{ font-family: var(--font-mono); font-size: 0.68rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--ink-faint); }
+  dl.stats dd{ font-family: var(--font-display); font-size: 1.7rem; margin-top:0.15rem; }
+
+  /* ============ Network ============ */
+  .site-list{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .site-card{
+    background: var(--surface);
+    padding: 1.15rem 1.25rem;
+    display:flex;
+    flex-direction:column;
+    gap: 0.4rem;
+  }
+  .site-card .code{ font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-faint); letter-spacing:0.06em; }
+  .site-card .name{ font-size: 0.95rem; line-height:1.35; }
+  .network-note{ margin-top: 1.25rem; color: var(--ink-faint); font-size: 0.85rem; }
+
+  /* ============ QIP library ============ */
+  .qip-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(16.5rem, 1fr));
+    gap: 1.15rem;
+  }
+  .qip-card{
+    border: 1px solid var(--line);
+    padding: 1.35rem 1.35rem 1.5rem;
+    display:flex;
+    flex-direction:column;
+    gap: 0.65rem;
+    background: var(--surface);
+  }
+  .qip-card .tag{
+    align-self:flex-start;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing:0.08em;
+    color: var(--ink-faint);
+    border: 1px solid var(--line);
+    padding: 0.18rem 0.5rem;
+  }
+  .qip-card h3{ font-size: 1.15rem; font-weight:500; }
+  .qip-card p{ color: var(--ink-soft); font-size: 0.92rem; }
+
+  /* ============ Resources ============ */
+  .resource-list{ border-top: 1px solid var(--line); }
+  .resource-row{
+    display:grid;
+    grid-template-columns: 6rem 1fr 6rem;
+    gap: 1.25rem;
+    align-items: baseline;
+    padding: 1.05rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .resource-row .code{ font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-faint); }
+  .resource-row .title{ font-size: 1rem; font-weight: 600; }
+  .resource-row .desc{ color: var(--ink-soft); font-size: 0.88rem; margin-top:0.2rem; }
+  .resource-row .format{ font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink-faint); text-align:right; }
+  @media (max-width: 620px){
+    .resource-row{ grid-template-columns: 1fr; gap: 0.3rem; }
+    .resource-row .format{ text-align:left; }
+  }
+
+  /* ============ Get involved ============ */
+  .steps{ display:grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--line); border:1px solid var(--line); }
+  @media (max-width: 860px){ .steps{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 520px){ .steps{ grid-template-columns: 1fr; } }
+  .step{ background: var(--surface); padding: 1.5rem 1.35rem; display:flex; flex-direction:column; gap:0.6rem; }
+  .step .n{ font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-faint); }
+  .step h3{ font-size: 1rem; font-weight: 600; font-family: var(--font-body); }
+  .step p{ color: var(--ink-soft); font-size: 0.88rem; }
+
+  .involved-cta{
+    margin-top: 2.25rem;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap: 1.25rem;
+    border: 1px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+  }
+  .involved-cta p{ max-width: 28rem; color: var(--ink-soft); font-size: 0.94rem; }
+  .involved-cta h3{ font-size: 1.2rem; }
+
+  /* ============ Footer ============ */
+  footer{ border-top: 1px solid var(--line); padding-block: 2.5rem; }
+  .footer-grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+  footer a{ color: var(--ink-soft); text-decoration:underline; text-underline-offset:2px; }
+  footer .mono{ font-family: var(--font-mono); font-size: 0.75rem; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav-row">
+    <a class="wordmark" href="#top">Sample Website <span class="tick">QUALITY IMPROVEMENT</span></a>
+    <nav class="primary" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#network">Sites</a>
+      <a href="#library">QIP Library</a>
+      <a href="#resources">Resources</a>
+      <a href="#involved">Get Involved</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Sample Website · Acute Internal Medicine</p>
+        <h1>A shared chart for<br>quality improvement<br><em>you can reuse.</em></h1>
+        <p class="lede">A ready-made home page for an acute medicine quality-improvement network — register, standardise and showcase QIPs across as many sites as you need. Swap in your own name, sites and project list, and it’s yours.</p>
+        <div class="cta-row">
+          <a class="btn btn-solid" href="#library">Browse the QIP library &rarr;</a>
+          <a class="btn btn-line" href="#involved">Register a project</a>
+        </div>
+      </div>
+
+      <figure class="chart-figure" aria-hidden="false">
+        <svg viewBox="0 0 320 150" role="img" aria-label="Illustrative run chart showing project measures improving above a baseline median over successive PDSA cycles">
+          <line x1="0" y1="112" x2="320" y2="98" class="trace-median" stroke-width="1" stroke-dasharray="3 4"/>
+          <polyline class="trace-line" fill="none" stroke-width="1.75"
+            points="0,128 26,124 52,131 78,118 104,109 130,112 156,95 182,86 208,90 234,68 260,58 286,44 312,36"/>
+          <g>
+            <circle class="trace-point" r="3" cx="0" cy="128" stroke-width="1.5"/>
+            <circle class="trace-point" r="3" cx="78" cy="118" stroke-width="1.5"/>
+            <circle class="trace-point" r="3" cx="156" cy="95" stroke-width="1.5"/>
+            <circle class="trace-point" r="3" cx="234" cy="68" stroke-width="1.5"/>
+            <circle class="trace-point" r="3.5" cx="312" cy="36" stroke-width="1.75"/>
+          </g>
+        </svg>
+        <figcaption><span>Run chart &middot; illustrative</span><span>Baseline &rarr; PDSA 4</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">About this template</p>
+          <h2>Built for departments who rotate trainees — not this exact one</h2>
+        </div>
+      </div>
+
+      <div class="about-cols">
+        <div class="measure">
+          <p>Acute medicine trainees rotate between placements every few months, and QIPs tend to rotate with them — started, half-finished, and quietly abandoned when a placement ends. A page like this one exists to break that cycle: a shared record of what’s been tried, what worked, and who to ask.</p>
+          <p>Everything below — the sites, the stats, the QIP list — is placeholder content. Replace it with your own department’s, and this becomes a working home page for your network, not a demo of someone else’s.</p>
+        </div>
+        <dl class="stats">
+          <div>
+            <dt>Sites in this template</dt>
+            <dd>4</dd>
+          </div>
+          <div>
+            <dt>QIP focus areas tracked</dt>
+            <dd>8</dd>
+          </div>
+          <div>
+            <dt>Suggested QI day</dt>
+            <dd>Termly</dd>
+          </div>
+          <div>
+            <dt>Coordinated by</dt>
+            <dd style="font-size:1.05rem;">Your trainee reps</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ============ NETWORK / SITES ============ -->
+  <section id="network">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">The network (example)</p>
+          <h2>Sites in this template</h2>
+        </div>
+        <p class="count">4 example sites</p>
+      </div>
+
+      <div class="site-list">
+        <div class="site-card"><span class="code">SITE 01</span><span class="name">Sample Trust A</span></div>
+        <div class="site-card"><span class="code">SITE 02</span><span class="name">Sample Trust B</span></div>
+        <div class="site-card"><span class="code">SITE 03</span><span class="name">Sample Trust C</span></div>
+        <div class="site-card"><span class="code">SITE 04</span><span class="name">Sample Trust D</span></div>
+      </div>
+      <p class="network-note">These four are placeholders — delete them and list your own sites, however many or few you have.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ============ QIP LIBRARY ============ -->
+  <section id="library">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">QIP library</p>
+          <h2>Focus areas trainees are working on</h2>
+        </div>
+        <p class="count">8 categories</p>
+      </div>
+
+      <div class="qip-grid">
+        <div class="qip-card">
+          <span class="tag">QI-01</span>
+          <h3>NEWS2 &amp; escalation</h3>
+          <p>Timeliness and documentation of escalation when NEWS2 triggers are reached on the acute take.</p>
+        </div>
+        <div class="qip-card">
+          <span class="tag">QI-02</span>
+          <h3>VTE risk assessment</h3>
+          <p>Completion of VTE risk assessment within 14 hours of admission.</p>
+        </div>
+        <div class="qip-card">
+          <span class="tag">QI-03</span>
+          <h3>AKI care bundle</h3>
+          <p>Bundle compliance and time to senior review for stage 2–3 AKI flagged on admission bloods.</p>
+        </div>
+        <div class="qip-card">
+          <span class="tag">QI-04</span>
+          <h3>Delirium screening</h3>
+          <p>4AT completion on admission for patients aged 65+.</p>
+        </div>
+        <div class="qip-card">
+          <span class="tag">QI-05</span>
+          <h3>Sepsis Six timing</h3>
+          <p>Door-to-antibiotic time and Sepsis Six bundle completion within the golden hour.</p>
+        </div>
+        <div class="qip-card">
+          <span class="tag">QI-06</span>
+          <h3>Discharge summaries</h3>
+          <p>Turnaround time and GP-relevant content of discharge summaries.</p>
+        </div>
+        <div class="qip-card">
+          <span class="tag">QI-07</span>
+          <h3>Medicines reconciliation</h3>
+          <p>Reconciliation within 24 hours of admission, with a pharmacy cross-check on high-risk drugs.</p>
+        </div>
+        <div class="qip-card">
+          <span class="tag">QI-08</span>
+          <h3>Ceiling of care documentation</h3>
+          <p>Clarity and consistency of treatment escalation plans documented within 24 hours.</p>
+        </div>
+      </div>
+      <p class="network-note">Another placeholder set — trim it to the categories your own department actually tracks.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ============ RESOURCES ============ -->
+  <section id="resources">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Toolkit</p>
+          <h2>Templates to keep in common</h2>
+        </div>
+      </div>
+
+      <div class="resource-list">
+        <div class="resource-row">
+          <span class="code">RES-01</span>
+          <div>
+            <div class="title">PDSA cycle worksheet</div>
+            <div class="desc">One page per cycle — plan, prediction, what happened, what’s next.</div>
+          </div>
+          <span class="format">.docx</span>
+        </div>
+        <div class="resource-row">
+          <span class="code">RES-02</span>
+          <div>
+            <div class="title">SMART aim statement builder</div>
+            <div class="desc">Turns a vague problem into a measurable, time-bound aim before you collect any data.</div>
+          </div>
+          <span class="format">.docx</span>
+        </div>
+        <div class="resource-row">
+          <span class="code">RES-03</span>
+          <div>
+            <div class="title">Run chart / SPC spreadsheet</div>
+            <div class="desc">Pre-built median and control-limit calculations — drop in your data points.</div>
+          </div>
+          <span class="format">.xlsx</span>
+        </div>
+        <div class="resource-row">
+          <span class="code">RES-04</span>
+          <div>
+            <div class="title">Driver diagram template</div>
+            <div class="desc">Primary and secondary drivers, laid out for a first team huddle.</div>
+          </div>
+          <span class="format">.pptx</span>
+        </div>
+        <div class="resource-row">
+          <span class="code">RES-05</span>
+          <div>
+            <div class="title">Poster template</div>
+            <div class="desc">A0 format for a regional or departmental QI day, ready to rebrand.</div>
+          </div>
+          <span class="format">.pptx</span>
+        </div>
+        <div class="resource-row">
+          <span class="code">RES-06</span>
+          <div>
+            <div class="title">ARCP evidence checklist</div>
+            <div class="desc">What a QIP write-up needs to satisfy the curriculum requirement, mapped to outcomes.</div>
+          </div>
+          <span class="format">.pdf</span>
+        </div>
+      </div>
+      <p class="network-note">Full versions are yours to host wherever your department already shares files — swap this line for your own link.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ============ GET INVOLVED ============ -->
+  <section id="involved">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Get involved</p>
+          <h2>From idea to QI day — however you structure it</h2>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <span class="n">01</span>
+          <h3>Register your idea</h3>
+          <p>A few lines on the problem and your proposed measure — before you start collecting data.</p>
+        </div>
+        <div class="step">
+          <span class="n">02</span>
+          <h3>Get matched</h3>
+          <p>A QI lead or a trainee who’s run something similar reviews it within a fortnight.</p>
+        </div>
+        <div class="step">
+          <span class="n">03</span>
+          <h3>Run your cycles</h3>
+          <p>Use the shared templates so your data plugs straight into the library.</p>
+        </div>
+        <div class="step">
+          <span class="n">04</span>
+          <h3>Present &amp; hand over</h3>
+          <p>Share results at your QI day, and leave a write-up for whoever comes next.</p>
+        </div>
+      </div>
+
+      <div class="involved-cta">
+        <div>
+          <h3>Ready to make this yours?</h3>
+          <p>Replace this box with your own contact — an email, a Teams channel, whatever your department already uses.</p>
+        </div>
+        <a class="btn btn-solid" href="mailto:qip@sample-website.example">qip@sample-website.example</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-grid">
+    <span>Sample Website — a template quality-improvement network page. Copy it, rebrand it, publish it.</span>
+    <span class="mono">Not affiliated with any trust or organisation</span>
+  </div>
+</footer>
+
+</body>
+</html>
